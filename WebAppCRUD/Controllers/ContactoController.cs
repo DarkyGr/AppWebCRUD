@@ -44,5 +44,30 @@ namespace WebAppCRUD.Controllers
 
             return View(listaContacto);
         }
+
+        [HttpGet] //Por default siempre es un HttpsGet y no recibe elementos y solo devuelve la vista
+        public ActionResult Registrar() {
+
+            return View();
+        }
+        
+        [HttpPost] //HttpPost se pueden enviar elementos
+        public ActionResult Registrar(Contacto ocontacto) {
+
+            using (SqlConnection oconexion = new SqlConnection(conexion))
+            { //Crea una nueva conexion 
+                SqlCommand cmd = new SqlCommand("sp_Registrar", oconexion);   //Se crea un nuevo comando sql para consultas
+                cmd.Parameters.AddWithValue("Nombres", ocontacto.Nombres);  //Creamos los valores como se creo el precedure de la DB sin el "@"
+                cmd.Parameters.AddWithValue("Apellidos", ocontacto.Apellidos);
+                cmd.Parameters.AddWithValue("Telefono", ocontacto.Telefono);
+                cmd.Parameters.AddWithValue("Correo", ocontacto.Correo);
+                cmd.CommandType = CommandType.StoredProcedure;     //Definir que es de un tipo
+                oconexion.Open();
+
+                cmd.ExecuteNonQuery();  //Ejecuta el comando                
+            }
+
+            return RedirectToAction("Inicio", "Contacto"); //Rederigimos a la pagina        
+        }
     }
 }

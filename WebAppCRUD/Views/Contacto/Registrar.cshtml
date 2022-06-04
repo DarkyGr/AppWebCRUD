@@ -1,0 +1,46 @@
+﻿@model WebAppCRUD.Models.Contacto
+
+@{
+    ViewBag.Title = "Registrar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row" style="margin-top: 30px">
+    <div class="col-sm-12">
+
+        <div class="panel panel-warning">
+            <div class="panel-heading">
+                <h4>Nuevo de Contacto</h4>
+
+            </div>
+            <div class="panel-body">
+                <form action="@Url.Action("Registrar", "Contacto")" method="post"> <!--La primera variable es el nombre del metodo, y la segunda del controlador-->
+                    <div class="form-group">
+                        <label>Nombres</label>
+                        <input type="text" class="form-control" name="Nombres" placeholder="Pepe Carlos" />
+                    </div>
+                    <div class="form-group">
+                        <label>Apellidos</label>
+                        <input type="text" class="form-control" name="Apellidos" placeholder="Villa Vain" />
+                    </div>
+                    <div class="form-group">
+                        <label>Telefono</label>
+                        <input type="text" class="form-control" name="Telefono" placeholder="9563212232" />
+                    </div>
+                    <div class="form-group">
+                        <label>Correo</label>
+                        <input type="text" class="form-control" name="Correo" placeholder="Pepe@example.com" />
+                    </div>                
+                    
+                    <button type="submit" class="btn btn-primary">Registrar</button>
+                    <a class="btn btn-warning" href="@Url.Action("Inicio", "Contacto")">Volver</a>                            
+                </form>
+            </div>           
+        </div>
+
+    </div>
+</div>
+
+
+
+
