@@ -11,7 +11,6 @@
         <div class="panel panel-warning">
             <div class="panel-heading">
                 <h4>Lista de Contactos</h4>
-
             </div>
 
             <div class="panel-body">
@@ -36,7 +35,8 @@
                                     <td>@item.Telefono</td>
                                     <td>@item.Correo</td>
                                     <td>
-                                        <a class="btn btn-primary btn-sm">Editar</a>
+                                        <a class="btn btn-primary btn-sm" href="@Url.Action("Editar", "Contacto", new { idcontacto = item.IdContacto })">Editar</a>
+                                        <!--el nombre de la variable que recibe el metodo debe llamarse igual-->
                                         <a class="btn btn-danger btn-sm">Eliminar</a>
                                     </td>
                                 </tr>

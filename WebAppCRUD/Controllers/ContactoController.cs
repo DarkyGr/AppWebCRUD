@@ -61,13 +61,46 @@ namespace WebAppCRUD.Controllers
                 cmd.Parameters.AddWithValue("Apellidos", ocontacto.Apellidos);
                 cmd.Parameters.AddWithValue("Telefono", ocontacto.Telefono);
                 cmd.Parameters.AddWithValue("Correo", ocontacto.Correo);
-                cmd.CommandType = CommandType.StoredProcedure;     //Definir que es de un tipo
+                cmd.CommandType = CommandType.StoredProcedure;     //Definir que es de un procedimiento almacenado
                 oconexion.Open();
 
-                cmd.ExecuteNonQuery();  //Ejecuta el comando                
+                cmd.ExecuteNonQuery();  //Ejecuta el procedimiento                
             }
 
             return RedirectToAction("Inicio", "Contacto"); //Rederigimos a la pagina        
+        }
+
+
+        [HttpGet] 
+        public ActionResult Editar(int? idcontacto)   //El parametro puede recibir null con "?"
+        {
+            if (idcontacto == null)
+                return RedirectToAction("Inicio","Contacto");
+
+            Contacto ocontacto = listaContacto.Where(c => c.IdContacto == idcontacto).FirstOrDefault();  //Retorna el primer contacto que coincida con el idcontacto
+
+            return View(ocontacto);            
+        }
+
+        [HttpPost]
+        public ActionResult Editar(Contacto ocontacto)
+        {
+            using (SqlConnection oconexion = new SqlConnection(conexion))
+            { //Crea una nueva conexion 
+                SqlCommand cmd = new SqlCommand("sp_Editar", oconexion);   //Se crea un nuevo comando sql para consultas
+                cmd.Parameters.AddWithValue("IdContacto", ocontacto.IdContacto);
+                cmd.Parameters.AddWithValue("Nombres", ocontacto.Nombres);  //Creamos los valores como se creo el precedure de la DB sin el "@"
+                cmd.Parameters.AddWithValue("Apellidos", ocontacto.Apellidos);
+                cmd.Parameters.AddWithValue("Telefono", ocontacto.Telefono);
+                cmd.Parameters.AddWithValue("Correo", ocontacto.Correo);
+                cmd.CommandType = CommandType.StoredProcedure;     //Definir que es de un procedimiento almacenado
+                oconexion.Open();
+
+                cmd.ExecuteNonQuery();  //Ejecuta el procedimiento                
+            }
+
+            return RedirectToAction("Inicio", "Contacto"); //Rederigimos a la pagina 
+
         }
     }
 }
