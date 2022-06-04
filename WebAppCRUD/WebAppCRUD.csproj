@@ -163,6 +163,7 @@
     <Content Include="Views\Contacto\Inicio.cshtml" />
     <Content Include="Views\Contacto\Registrar.cshtml" />
     <Content Include="Views\Contacto\Editar.cshtml" />
+    <Content Include="Views\Contacto\Eliminar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

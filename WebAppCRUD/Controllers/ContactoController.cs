@@ -102,5 +102,33 @@ namespace WebAppCRUD.Controllers
             return RedirectToAction("Inicio", "Contacto"); //Rederigimos a la pagina 
 
         }
+
+        [HttpGet]
+        public ActionResult Eliminar(int? idcontacto)   //El parametro puede recibir null con "?"
+        {
+            if (idcontacto == null)
+                return RedirectToAction("Inicio", "Contacto");
+
+            Contacto ocontacto = listaContacto.Where(c => c.IdContacto == idcontacto).FirstOrDefault();  //Retorna el primer contacto que coincida con el idcontacto
+
+            return View(ocontacto);
+        }
+
+        [HttpPost]
+        public ActionResult Eliminar(string IdContacto)
+        {
+            using (SqlConnection oconexion = new SqlConnection(conexion))
+            { //Crea una nueva conexion 
+                SqlCommand cmd = new SqlCommand("sp_Eliminar", oconexion);   //Se crea un nuevo comando sql para consultas
+                cmd.Parameters.AddWithValue("IdContacto", IdContacto);                
+                cmd.CommandType = CommandType.StoredProcedure;     //Definir que es de un procedimiento almacenado
+                oconexion.Open();
+
+                cmd.ExecuteNonQuery();  //Ejecuta el procedimiento                
+            }
+
+            return RedirectToAction("Inicio", "Contacto"); //Rederigimos a la pagina 
+
+        }
     }
 }
