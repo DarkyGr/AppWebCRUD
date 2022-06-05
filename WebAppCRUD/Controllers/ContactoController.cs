@@ -130,5 +130,9 @@ namespace WebAppCRUD.Controllers
             return RedirectToAction("Inicio", "Contacto"); //Rederigimos a la pagina 
 
         }
+
+        public ActionResult About() {
+            return View();
+        }
     }
 }
